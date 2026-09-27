@@ -1,0 +1,41 @@
+{
+  "name": "screen-recorder",
+  "productName": "Screen Recorder",
+  "version": "1.0.0",
+  "description": "Gravador de tela com webcam — tela inteira ou janela de app, com retorno da webcam em tempo real.",
+  "main": "main.js",
+  "author": "schio",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "smoke": "electron . --smoke",
+    "dist": "electron-builder --win portable"
+  },
+  "devDependencies": {
+    "electron": "^38.0.0",
+    "electron-builder": "^26.0.0"
+  },
+  "build": {
+    "appId": "com.schio.screenrecorder",
+    "productName": "Screen Recorder",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "build/icon.ico",
+      "package.json"
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        "portable"
+      ]
+    },
+    "portable": {
+      "artifactName": "Screen Recorder.exe"
+    }
+  }
+}

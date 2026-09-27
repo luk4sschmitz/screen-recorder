@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:" />
+  <title>Screen Recorder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="layout">
+    <!-- ==================== BARRA LATERAL ==================== -->
+    <aside id="sidebar">
+      <h1><span class="dot"></span> Screen Recorder</h1>
+
+      <section>
+        <h2>1 · Fonte da gravação</h2>
+        <div class="row">
+          <button id="btnRefreshSources" class="ghost" title="Atualizar lista">↻ Atualizar</button>
+        </div>
+        <div id="sourceTabs" class="tabs">
+          <button data-tab="screens" class="tab active">Telas</button>
+          <button data-tab="windows" class="tab">Janelas de apps</button>
+        </div>
+        <div id="sourceList" class="source-list"></div>
+      </section>
+
+      <section>
+        <h2>2 · Webcam</h2>
+        <label class="field"><span>Câmera</span>
+          <select id="camSelect"></select>
+        </label>
+        <label class="check"><input type="checkbox" id="camOverlay" checked /> Incluir webcam no vídeo (PiP)</label>
+        <label class="check"><input type="checkbox" id="camFloat" /> Retorno flutuante sobre a tela (abre ao gravar)</label>
+        <div class="row">
+          <label class="field small"><span>Posição</span>
+            <select id="camPos">
+              <option value="br" selected>Inferior direita</option>
+              <option value="bl">Inferior esquerda</option>
+              <option value="tr">Superior direita</option>
+              <option value="tl">Superior esquerda</option>
+            </select>
+          </label>
+          <label class="field small"><span>Tamanho</span>
+            <select id="camSize">
+              <option value="0.15">Pequeno</option>
+              <option value="0.22" selected>Médio</option>
+              <option value="0.30">Grande</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section>
+        <h2>3 · Áudio</h2>
+        <label class="field"><span>Microfone</span>
+          <select id="micSelect"></select>
+        </label>
+        <label class="check"><input type="checkbox" id="micOn" checked /> Gravar microfone</label>
+        <label class="check"><input type="checkbox" id="sysAudioOn" checked /> Gravar som do sistema</label>
+      </section>
+
+      <section>
+        <h2>4 · Qualidade</h2>
+        <div class="row">
+          <label class="field small"><span>FPS</span>
+            <select id="fpsSelect">
+              <option value="24">24</option>
+              <option value="30" selected>30</option>
+              <option value="60">60</option>
+            </select>
+          </label>
+          <label class="field small"><span>Bitrate</span>
+            <select id="bitrateSelect">
+              <option value="5000000">5 Mbps</option>
+              <option value="8000000" selected>8 Mbps</option>
+              <option value="16000000">16 Mbps</option>
+            </select>
+          </label>
+        </div>
+      </section>
+    </aside>
+
+    <!-- ==================== ÁREA PRINCIPAL ==================== -->
+    <main id="mainArea">
+      <div id="previewWrap">
+        <canvas id="preview"></canvas>
+        <div id="previewEmpty">
+          <p>Escolha uma <b>tela</b> ou <b>janela</b> na lateral para ver o preview.</p>
+        </div>
+        <div id="recBadge" hidden><span class="dot"></span> <span id="recTimer">00:00</span></div>
+      </div>
+
+      <div id="controls">
+        <button id="btnRecord" class="record" disabled>● Gravar</button>
+        <button id="btnPause" class="ghost big" disabled>⏸ Pausar</button>
+        <button id="btnStop" class="ghost big danger" disabled>■ Parar</button>
+        <span id="status" class="status">Selecione uma fonte para começar. Atalho global: <b>Ctrl+Shift+F9</b> grava/para.</span>
+      </div>
+    </main>
+  </div>
+
+  <video id="screenVideo" autoplay muted playsinline hidden></video>
+  <video id="camReturn" autoplay muted playsinline hidden></video>
+  <script src="app.js"></script>
+</body>
+</html>
